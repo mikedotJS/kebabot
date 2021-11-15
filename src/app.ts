@@ -1,12 +1,16 @@
-import Discord from 'discord.js';
-import * as dotenv from 'dotenv';
+import { client } from "./client";
+import { commandRouter } from "./components";
+import { Command } from "./components/command-router/command-router";
+import { COMMAND_KEYWORD } from "./constants";
 
-dotenv.config();
-
-const client = new Discord.Client();
-
-client.login(process.env.DISCORD_BOT_TOKEN);
-
-client.on("ready", () => {
+client.on("ready", async () => {
   console.log(`Logged in as ${client?.user?.tag}!`);
+});
+
+client.on("message", (message) => {
+  if (message.author.bot) return;
+  const [command, arg1] = message.content.split(" ");
+
+  if (!command.startsWith(COMMAND_KEYWORD)) return;
+  commandRouter(arg1 as Command, message);
 });
