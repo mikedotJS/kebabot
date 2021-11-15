@@ -1,9 +1,9 @@
-import { client } from './client';
-import { commandRouter } from './components';
-import { Command } from './components/command-router/command-router';
-import { COMMAND_KEYWORD } from './constants';
+import { client } from "./client";
+import { commandRouter } from "./components";
+import { Command } from "./components/command-router/command-router";
+import { COMMAND_KEYWORD } from "./constants";
 
-client.on("ready", () => {
+client.on("ready", async () => {
   console.log(`Logged in as ${client?.user?.tag}!`);
 });
 
